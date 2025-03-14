@@ -1,17 +1,18 @@
 import os
 import logging
-import redis
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes
 from transformers import pipeline
+from upstash_redis import Redis
 
 # Конфигурация
-REDIS_URL = os.getenv("REDIS_URL")
+REDIS_URL = os.getenv("UPSTASH_REDIS_REST_URL")
+REDIS_TOKEN = os.getenv("UPSTASH_REDIS_REST_TOKEN")
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 MODEL_NAME = "microsoft/DialoGPT-small"
 
 # Инициализация
-redis_db = redis.from_url(REDIS_URL)
+redis_db = Redis(url=REDIS_URL, token=REDIS_TOKEN)
 chatbot = pipeline("text-generation", model=MODEL_NAME)
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
