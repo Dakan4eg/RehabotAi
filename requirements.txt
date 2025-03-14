@@ -1,4 +1,4 @@
 python-telegram-bot==20.3
-redis==4.6.0
+upstash-redis==0.15.0
 transformers==4.37.2
 torch==2.1.2 --extra-index-url https://download.pytorch.org/whl/cpu
